@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise for Israa</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff; /* لون أزرق هادئ بدلاً من الوردي */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #gift-section {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .main-title {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .sub-text {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+
+        #celebration {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="gift-section" onclick="showCelebration()">
+        <div style="font-size: 100px;">🎁</div>
+        <p style="color: #34495e; font-weight: bold;">Click to open, Israa!</p>
+    </div>
+
+    <div id="celebration">
+        <div style="font-size: 80px;">🎂</div>
+        <h1 class="main-title">Happy Birthday, Israa! 🎉</h1>
+        <p class="sub-text">Wishing you a year full of success and happiness.</p>
+        <div style="font-size: 40px; margin-top: 20px;">🎈💻✨</div>
+    </div>
+
+    <script>
+        function showCelebration() {
+            // إخفاء الهدية وإظهار التهنئة
+            document.getElementById('gift-section').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            
+            // إضافة تأثير القصاصات الملونة (Confetti) البسيط
+            for(let i = 0; i < 50; i++) {
+                createConfetti();
+            }
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.innerText = '✨';
+            confetti.style.position = 'absolute';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-20px';
+            confetti.style.fontSize = Math.random() * 20 + 10 + 'px';
+            confetti.style.transition = 'transform 3s linear, opacity 3s';
+            
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.style.transform = `translateY(100vh) rotate(${Math.random() * 360}deg)`;
+                confetti.style.opacity = '0';
+            }, 100);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
