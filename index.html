@@ -1,162 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise for Israa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>هدية لإسراء</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #fcfaf9; 
-            font-family: 'Playfair Display', serif;
+            margin: 0;
+            background-color: #fce4ec;
+            font-family: Arial, sans-serif;
             overflow: hidden;
+        }
+
+        .gift-container {
             text-align: center;
-        }
-
-        #gift-container {
-            position: absolute;
             cursor: pointer;
-            transition: all 0.3s ease-out;
-            user-select: none;
-            z-index: 10;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
         }
 
-        .gift-icon {
-            font-size: 110px;
-            filter: drop-shadow(0 8px 20px rgba(183, 110, 121, 0.25));
+        /* شكل الصندوق */
+        .gift-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background-color: #e91e63;
+            margin: 0 auto;
+            border-radius: 10px;
+            transition: transform 0.5s;
         }
 
-        #celebration-card {
-            display: none;
-            background-color: #fff;
-            padding: 45px;
-            border-radius: 40px;
-            box-shadow: 0 25px 60px rgba(188, 143, 143, 0.15);
-            border: 1px solid #f0f0f0;
-            max-width: 80%;
-            animation: elegantShow 1.5s ease;
-        }
-
-        .main-title {
-            color: #444;
-            font-size: 2.6rem;
-            margin: 5px 0;
-        }
-
-        .name-highlight {
-            color: #b76e79;
-            font-style: italic;
-        }
-
-        .sub-text {
-            color: #999;
-            font-size: 1.15rem;
-            line-height: 1.8;
-            margin-top: 15px;
-        }
-
-        @keyframes elegantShow {
-            from { opacity: 0; transform: scale(0.95) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .decor-item {
+        .gift-box::before {
+            content: "";
             position: absolute;
-            pointer-events: none;
-            z-index: 1;
-            animation: riseUp 3.5s ease-out forwards;
+            width: 20px;
+            height: 100%;
+            background-color: #ad1457;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        @keyframes riseUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) rotate(450deg); opacity: 0; }
+        .gift-box::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background-color: #ad1457;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* الغطاء */
+        .lid {
+            position: absolute;
+            width: 170px;
+            height: 40px;
+            background-color: #ff4081;
+            top: -20px;
+            left: -10px;
+            border-radius: 5px;
+            z-index: 2;
+            transition: transform 0.7s;
+        }
+
+        /* الرسالة المخفية */
+        .message {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: all 0.8s ease;
+            z-index: 1;
+            color: #d81b60;
+            font-weight: bold;
+        }
+
+        /* الأنيميشن لما نضغط */
+        .active .lid {
+            transform: translateY(-100px) rotate(-10deg);
+        }
+
+        .active .message {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-150px);
+        }
+
+        .tap-text {
+            margin-top: 20px;
+            color: #ad1457;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <div id="gift-container" onmouseover="escapeGift()" onclick="openGift()">
-        <div class="gift-icon">🎁</div>
-        <p id="funny-text" style="color: #b76e79; font-size: 1rem; margin-top: 15px; font-weight: bold;">أمسكيها إن استطعتِ يا إسراء! 🏃‍♀️</p>
+<div class="gift-container" id="giftWrapper">
+    <div class="message" id="msg">
+        أحلى هدية لأغلى إسراء! 🌸✨
     </div>
-
-    <div id="celebration-card">
-        <div style="font-size: 55px; margin-bottom: 10px;">🌸🌷✨</div>
-        <h1 class="main-title">Happy Birthday,</h1>
-        <h1 class="main-title"><span class="name-highlight">Israa</span>!</h1>
-        <p class="sub-text">Wishing you a day filled with all the <br>beauty and elegance you bring to the world.</p>
-        <div style="margin-top: 35px; font-size: 22px; color: #b76e79; opacity: 0.7;">🤍🍰✨</div>
+    <div class="gift-box">
+        <div class="lid"></div>
     </div>
+    <p class="tap-text">انقر على الصندوق لفتحه</p>
+</div>
 
-    <script>
-        let count = 0;
-        const totalSteps = 5; 
-        const gift = document.getElementById('gift-container');
-        const text = document.getElementById('funny-text');
+<script>
+    const wrapper = document.getElementById('giftWrapper');
+    
+    // وظيفة الفتح تخدم للنقر واللمس
+    function openGift() {
+        wrapper.classList.toggle('active');
+    }
 
-        // قائمة بالعبارات الطريفة
-        const phrases = [
-            "لا.. ليس بهذه السهولة! 😂",
-            "أوووبس.. حاولي مرة أخرى! 😜",
-            "هل تعبتِ؟ إسراء سريعة ولكن الهدية أسرع! 🏎️",
-            "لقد كدتِ تلمسينني! 🤏",
-            "خلاص استسلمت.. يمكنكِ فتحي الآن! 🤍"
-        ];
+    // دعم التلفون (Touch) والكمبيوتر (Click)
+    wrapper.addEventListener('click', openGift);
+    wrapper.addEventListener('touchstart', function(e) {
+        e.preventDefault(); // يمنع أي مشاكل مع المتصفح
+        openGift();
+    });
+</script>
 
-        function escapeGift() {
-            if (count < totalSteps) {
-                const padding = 150;
-                const newX = Math.random() * (window.innerWidth - padding);
-                const newY = Math.random() * (window.innerHeight - padding);
-                
-                gift.style.transform = 'none';
-                gift.style.left = newX + 'px';
-                gift.style.top = newY + 'px';
-                
-                // تغيير النص في كل مرة
-                text.innerText = phrases[count];
-                
-                count++;
-
-                if (count === totalSteps) {
-                    gift.onmouseover = null; 
-                    gift.style.cursor = 'pointer';
-                }
-            }
-        }
-
-        function openGift() {
-            if (count >= totalSteps) {
-                gift.style.display = 'none';
-                document.getElementById('celebration-card').style.display = 'block';
-                
-                for(let i = 0; i < 65; i++) {
-                    setTimeout(spawnDecor, i * 40);
-                }
-            }
-        }
-
-        function spawnDecor() {
-            const symbols = ['🌸', '✨', '💖', '🤍', '⭐'];
-            const el = document.createElement('div');
-            el.className = 'decor-item';
-            el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.top = '95vh';
-            el.style.fontSize = Math.random() * 25 + 15 + 'px';
-            document.body.appendChild(el);
-            
-            setTimeout(() => el.remove(), 3500);
-        }
-    </script>
 </body>
 </html>
