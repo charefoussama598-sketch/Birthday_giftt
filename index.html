@@ -1,120 +1,117 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هدية لإسراء</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Gift for Israa</title>
     <style>
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffebee;
-            font-family: 'Arial', sans-serif;
+            background: #fff0f3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
+            touch-action: none;
         }
 
-        /* حاوية الهدية */
-        .gift-container {
+        .gift-wrapper {
             position: relative;
-            cursor: pointer;
-        }
-
-        /* زر مخفي للتحكم في الفتح بدون جافاسكريبت */
-        #open-gift {
-            display: none;
-        }
-
-        /* شكل الصندوق */
-        .gift-box {
-            width: 140px;
-            height: 140px;
-            background-color: #f44336;
-            position: relative;
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
             z-index: 10;
         }
 
-        /* الأشرطة */
-        .gift-box::before {
-            content: "";
+        .gift-box {
+            width: 120px;
+            height: 120px;
+            background: #ff4d6d;
+            position: relative;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Ribbon */
+        .gift-box::after {
+            content: '';
             position: absolute;
-            width: 25px;
+            width: 20px;
             height: 100%;
-            background-color: #d32f2f;
+            background: #c9184a;
             left: 50%;
             transform: translateX(-50%);
         }
 
-        /* الغطاء */
         .lid {
+            width: 130px;
+            height: 30px;
+            background: #ff758f;
             position: absolute;
-            width: 160px;
-            height: 40px;
-            background-color: #ff5252;
-            top: -20px;
-            left: -10px;
-            border-radius: 5px;
+            top: -15px;
+            left: -5px;
             z-index: 11;
-            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        /* الرسالة */
-        .message {
+        /* Message Card */
+        .card {
             position: absolute;
-            top: 20px;
+            top: 10px;
             left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
+            transform: translate(-50%, 0);
+            width: 220px;
             background: white;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             text-align: center;
-            color: #c2185b;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             opacity: 0;
-            transition: all 0.6s ease;
+            visibility: hidden;
+            transition: all 0.8s ease;
+            color: #ff4d6d;
             z-index: 1;
         }
 
-        /* الحركة عند النقر (باستعمال Checkbox) */
-        #open-gift:checked ~ .gift-container .lid {
-            transform: translateY(-120px) rotate(15deg);
+        .card h2 { margin: 0; font-size: 22px; }
+        .card p { font-size: 16px; margin: 10px 0 0; }
+
+        /* Open State Animations */
+        .open .lid {
+            transform: translateY(-120px) rotate(-20deg);
+            opacity: 0;
         }
 
-        #open-gift:checked ~ .gift-container .message {
+        .open .card {
             opacity: 1;
-            transform: translateX(-50%) translateY(-140px);
+            visibility: visible;
+            transform: translate(-50%, -180px);
         }
 
-        .hint {
-            margin-top: 25px;
-            color: #d32f2f;
-            font-size: 14px;
+        .open .gift-box { transform: scale(0.9); background: #ffb3c1; }
+
+        .instruction {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
             text-align: center;
+            font-size: 12px;
+            color: #ff4d6d;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <input type="checkbox" id="open-gift">
-    
-    <label for="open-gift" class="gift-container">
-        <div class="message">
-            أحلى مفاجأة لإسراء! 🌸✨<br>
-            كل عام وأنتِ بخير
-        </div>
-        <div class="gift-box">
-            <div class="lid"></div>
-        </div>
-        <div class="hint">اضغط على الصندوق لفتحه</div>
-    </label>
-
-</body>
-</html>
+<div class="gift-wrapper" id="giftBox">
+    <div class="card">
+        <h2>Happy Birthday, Israa! 🌸</h2>
+        <p>Wishing you a day filled with love and laughter. You deserve the best! ✨</p>
+    </div>
+    <div class="lid"></div>
+    <div class="gift-box"></div>
+    <div class="instruction">Tap to open
