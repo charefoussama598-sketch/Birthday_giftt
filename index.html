@@ -3,158 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Gift for You 🎁</title>
+    <title>A Special Something for Israa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            height: 100vh;
+            padding: 0;
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: radial-gradient(circle, #fff0f6 0%, #fcc2d7 100%);
-            font-family: 'Poppins', sans-serif;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5; /* White Smoke: خلفية ناعمة ونظيفة */
+            font-family: 'Playfair Display', serif; /* خط أنيق جداً */
             overflow: hidden;
-            touch-action: manipulation;
-        }
-
-        #hint-bar {
-            position: fixed;
-            top: 40px;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px 20px;
-            border-radius: 30px;
-            color: #d6336c;
-            font-weight: bold;
-            z-index: 200;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .gift-container {
-            position: absolute;
+        /* تصميم صندوق الهدية */
+        #gift-box {
+            position: relative;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 100;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.5s ease;
+            animation: pulse 1.5s infinite; /* تأثير نبض لطيف وجذاب */
         }
 
-        .gift-box {
-            font-size: 80px;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        #gift-box:hover {
+            transform: scale(1.05) rotate(2deg); /* حركة بسيطة عند التمرير */
         }
 
-        #celebration {
+        /* تصميم البطاقة الأنيقة بالداخل */
+        #celebration-card {
             display: none;
-            text-align: center;
-            padding: 20px;
-            animation: popIn 1s ease-out forwards;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(188, 143, 143, 0.2); /* Dusty Pink shadow */
+            border: 2px solid #b76e79; /* Rose Gold border */
+            max-width: 80%;
+            animation: cardFadeIn 1s ease-out; /* دخول ناعم للبطاقة */
         }
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
+        .main-title {
+            color: #2c3e50; /* لون كلاسيكي */
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            font-weight: 700;
         }
 
-        .main-title { color: #d6336c; font-size: 2.2rem; margin: 10px 0; }
-        .sub-text { color: #862e9c; font-size: 1.2rem; }
+        .name-highlight {
+            color: #b76e79; /* لون Rose Gold للاسم */
+            font-style: italic;
+        }
 
-        .particle {
+        .sub-text {
+            color: #7f8c8d;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        /* تأثير النبض (Pulse) */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(183, 110, 121, 0.3); }
+            70% { transform: scale(1.03); box-shadow: 0 0 10px 15px rgba(183, 110, 121, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(183, 110, 121, 0); }
+        }
+
+        /* دخول ناعم للبطاقة (Card Fade-in) */
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تصميم القلوب والنجوم المتساقطة */
+        .decoration {
             position: absolute;
             pointer-events: none;
-            animation: floatUp 4s linear forwards;
-            z-index: 50;
+            user-select: none;
+            opacity: 0;
+            animation: fall 3s ease-out forwards;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: rotate(0); }
-            25% { transform: rotate(10deg); }
-            75% { transform: rotate(-10deg); }
+        @keyframes fall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div id="hint-bar">
-        Tap the gift! 🎁 <br>
-        <span id="counter">Remaining: 5</span>
+    <div id="gift-box" onclick="openCelebration()">
+        <div style="font-size: 120px; color: #b76e79;">🎁</div> <p style="color: #b76e79; font-weight: bold; font-style: italic;">Just for you, <span class="name-highlight">Israa</span></p>
     </div>
 
-    <div class="gift-container" id="gift-section" onclick="handleInteraction()">
-        <div class="gift-box" id="actual-gift">🎁</div>
-    </div>
-
-    <div id="celebration">
-        <div style="font-size: 80px;">🌸</div>
-        <h1 class="main-title">Happy Birthday, Gorgeous! ✨</h1>
-        <p class="sub-text">Wishing you a year as lovely as you are.</p>
-        <div style="font-size: 40px; margin-top: 20px;">🎂💖👑</div>
+    <div id="celebration-card">
+        <div style="font-size: 60px;">🎂🤍</div> <h1 class="main-title">Happy Birthday!</h1>
+        <h1 class="main-title"><span class="name-highlight">Israa</span> 🎉</h1>
+        <p class="sub-text">Wishing you a year filled with elegance, happiness,<br>and all the success you deserve.</p>
+        <p style="color: #b76e79; font-size: 1.1rem; margin-top: 30px;">- Crafted with ❤️ for you</p>
     </div>
 
     <script>
-        let touchCount = 0;
-        const maxTouches = 5; 
-        const giftContainer = document.getElementById('gift-section');
-        const giftEmoji = document.getElementById('actual-gift');
-        const hint = document.getElementById('hint-bar');
-        const counterText = document.getElementById('counter');
-
-        function handleInteraction() {
-            if (touchCount < maxTouches) {
-                // تحريك الهدية
-                const padding = 80;
-                const newX = Math.random() * (window.innerWidth - padding * 2) + padding;
-                const newY = Math.random() * (window.innerHeight - padding * 2) + padding;
-                
-                giftContainer.style.left = (newX - 40) + 'px';
-                giftContainer.style.top = (newY - 40) + 'px';
-                
-                touchCount++;
-                counterText.innerText = "Remaining: " + (maxTouches - touchCount);
-
-                if (touchCount === maxTouches) {
-                    counterText.innerText = "You won! ✨";
-                    hint.style.background = "#fff0f6";
-                    giftContainer.style.left = "50%";
-                    giftContainer.style.top = "50%";
-                    giftContainer.style.transform = "translate(-50%, -50%)";
-                    giftEmoji.style.animation = "shake 0.5s infinite";
-                    giftEmoji.innerHTML = "💝"; 
-                }
-            } else {
-                openSurprise();
+        function openCelebration() {
+            // إخفاء صندوق الهدية وإظهار البطاقة
+            document.getElementById('gift-box').style.display = 'none';
+            document.getElementById('celebration-card').style.display = 'block';
+            
+            // إنشاء القلوب والنجوم المتساقطة (تأثير أنثوي)
+            for(let i = 0; i < 60; i++) {
+                setTimeout(createDecoration, i * 50); // تساقط تدريجي
             }
         }
 
-        function openSurprise() {
-            giftContainer.style.display = 'none';
-            hint.style.display = 'none';
-            document.getElementById('celebration').style.display = 'block';
-            document.body.style.background = "#fff5f8";
-            setInterval(createParticle, 150);
-        }
+        function createDecoration() {
+            const decorations = ['✨', '❤️', '🌸', '💖']; // نجوم، قلوب، زهور صغيرة
+            const decor = document.createElement('div');
+            decor.className = 'decoration';
+            decor.innerText = decorations[Math.floor(Math.random() * decorations.length)];
+            
+            // تخصيص عشوائي للمظهر
+            decor.style.left = Math.random() * 100 + 'vw';
+            decor.style.top = '-20px';
+            decor.style.fontSize = Math.random() * 25 + 15 + 'px'; // أحجام مختلفة
+            decor.style.color = Math.random() > 0.5 ? '#b76e79' : '#fff'; // أبيض أو ذهبي وردي
 
-        function createParticle() {
-            const symbols = ['💖', '🌸', '✨', '💕', '🎈'];
-            const p = document.createElement('div');
-            p.classList.add('particle');
-            p.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            document.body.appendChild(p);
-            setTimeout(() => p.remove(), 4000);
-        }
+            document.body.appendChild(decor);
 
-        window.onload = () => {
-            giftContainer.style.left = "50%";
-            giftContainer.style.top = "50%";
-            giftContainer.style.transform = "translate(-50%, -50%)";
-        };
+            // حذف العنصر بعد انتهاء الحركة
+            setTimeout(() => {
+                decor.remove();
+            }, 3000);
+        }
     </script>
 </body>
 </html>
